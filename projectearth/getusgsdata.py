@@ -1,13 +1,8 @@
-from pymongo import MongoClient
 import sys
 import requests
 import time
 import dblayer
 
-# client = MongoClient("mongodb://localhost:27017")
-#
-# db = client.TestUSGS
-#vals = []
 
 def doGetData():
     sess = requests.Session()
@@ -54,19 +49,4 @@ def doGetData():
     dbobj.closedb()
     sess.close()
     return resp_text
-
-#sess = requests.Session()
-#### TME: Get start time
-#start_time = time.time()
-
-#doGetData()
-
-#### TME: Elapsed time taken to download USGS data
-# elapsed = time.time() - start_time
-# line = "="*60
-# print (line)
-# print(str(elapsed) + " secs required to download " + str(db.usgsdata.count()) + " records from USGS.")
-# print (line)
-
-#client.close()
 

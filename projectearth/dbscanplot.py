@@ -1,4 +1,3 @@
-from pymongo import MongoClient
 import requests
 import time
 
@@ -42,12 +41,11 @@ def showLatLongInCluster(data):
         layout = go.Layout(showlegend=False, title='Earthquakes In North and South America',
                            titlefont=dict(family='Courier New, monospace',size=20,color='#7f7f7f'),
                             geo=dict(scope=('north america', 'south america'),
-                                projection=dict(type='orthographic'),
+                                projection=dict(type='orthographic',rotation=dict(lon=-60)),
                                 showland=True, landcolor='#191919',
                                 showcountries=True,
                                 showocean=True, oceancolor='rgb(217,217,255)',
                                 showframe=False,
-
                                 ),
                                xaxis=dict(showgrid=False, zeroline=False),
                                yaxis=dict(showgrid=False, zeroline=False))
@@ -102,8 +100,3 @@ def mkLatLong():
 
     return response
 
-
-
-#sess = requests.Session()
-# mkLatLong()
-# client.close()

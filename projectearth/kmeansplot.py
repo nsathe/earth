@@ -1,4 +1,3 @@
-from pymongo import MongoClient
 import requests
 import time
 
@@ -48,7 +47,6 @@ def showMagnitudesInCluster(data):
                        )
 
     fig = go.Figure(data=plot_data, layout=layout)
-    #plotly.offline.plot(fig, filename='mag_depth.html')
     div = plotly.offline.plot(fig, include_plotlyjs=True, output_type='div')
 
     return div
@@ -63,7 +61,6 @@ def mkMag():
     projection = [
         {"$project": {"_id": 0, "mag": "$properties.mag", "depth": {"$arrayElemAt": ["$geometry.coordinates", 2]}}}]
 
-    #dframe_mag = pd.DataFrame(list(dbobj.doaggregate(projection)))
     dframe_mag = pd.DataFrame(list(dbobj.doaggregate(projection)))
 
     #### TME: Elapsed time taken to read data from MongoDB
@@ -92,7 +89,3 @@ def mkMag():
 
     dbobj.closedb()
     return response
-
-#sess = requests.Session()
-#mkMag()
-# client.close()
