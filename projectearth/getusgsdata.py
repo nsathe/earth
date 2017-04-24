@@ -2,7 +2,7 @@ import sys
 import requests
 import time
 import dblayer
-
+import testfile
 
 def doGetData():
     sess = requests.Session()
@@ -27,24 +27,24 @@ def doGetData():
     except requests.exceptions.RequestException as e:
         # catastrophic error. bail.
         resp_text = str(e)
-        #print (e)
+
         sys.exit(1)
 
     dbobj.dropdb()
 
-    # db.usgsdata.drop()
     if resp is not None:
         dbobj.insertdata(resp["features"])
-        #db.usgsdata.insert_many(resp["features"])
-        #print ("Total " + str(db.usgsdata.count()) + " records downloaded." )
         resp_text = "Total " + str(dbobj.count()) + " records downloaded."
 
+    fileobj=testfile.classFileWrite()
     #### TME: Elapsed time taken to download USGS data
     elapsed = time.time() - start_time
-    line = "="*60
-    print (line)
-    print(str(elapsed) + " secs required to download " + str(dbobj.count()) + " records from USGS.")
-    print (line)
+
+    fileobj.writeline()
+    str1 = str(elapsed) + " secs required to download " + str(dbobj.count()) + " records from USGS."
+    fileobj.writelog(str1)
+    fileobj.writeline()
+    fileobj.closefile()
 
     dbobj.closedb()
     sess.close()

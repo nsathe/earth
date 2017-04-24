@@ -11,7 +11,7 @@ import plotly.graph_objs as go
 import pandas as pd
 import numpy as np
 import random
-
+import testfile
 # Create random colors in list
 color_list = []
 def generate_color(ncluster):
@@ -51,7 +51,7 @@ def showLatLongInCluster(data):
                                yaxis=dict(showgrid=False, zeroline=False))
 
     fig = go.Figure(data=plot_data, layout=layout)
-    #plotly.offline.plot(fig, filename='lat_long.html')
+
     div = plotly.offline.plot(fig, include_plotlyjs=True, output_type='div')
 
     return div
@@ -72,13 +72,16 @@ def mkLatLong():
     df = df[['longitude', 'latitude']].copy()
 
     #### TME: Elapsed time taken to read data from MongoDB
+
+    fileobj = testfile.classFileWrite()
+
     elapsed = time.time() - start_time
-    line = "=" * 60
-    print (line)
-    print ("Reading Longitude and Latitude")
-    print(str(elapsed) + " secs required to read " + str(df['latitude'].count()) + " records from database.")
-    print (line)
-    ###
+
+    fileobj.writeline()
+    str1 = str(elapsed) + " secs required to read " + str(df['latitude'].count()) + " records from database."
+    fileobj.writelog("Reading Longitude and Latitude")
+    fileobj.writelog(str1)
+    ####
 
     #### TME: Get start time
     start_time = time.time()
@@ -91,12 +94,14 @@ def mkLatLong():
 
     #### TME: Elapsed time taken to cluster and plot data
     elapsed = time.time() - start_time
-    line = "=" * 60
-    print (line)
-    print ("Applying DBSCAN clustering and plotting its output")
-    print("Time taken: " + str(elapsed))
-    print (line)
-    ###
+
+    fileobj.writeline()
+    str1 = "Time taken: " + str(elapsed)
+    fileobj.writelog("Applying DBSCAN clustering and plotting its output")
+    fileobj.writelog(str1)
+    fileobj.writeline()
+    fileobj.closefile()
+    ####
 
     return response
 
