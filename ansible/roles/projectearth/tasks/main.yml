@@ -26,7 +26,7 @@
 
     - name: Copy projectearth code
       become: no
-      command: cp -R /tmp/pearth/code/projectearth ~/projectearth
+      command: cp -R /tmp/pearth/projectearth ~/projectearth
 
     - name: Install libraries required for running projet
       action: pip name={{item}} state=present
