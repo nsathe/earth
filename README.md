@@ -1,11 +1,11 @@
 ### Setup VM
 
-Following should be done for setting up VM on chameleon or jetsream cloud. It is assumed that user already has the cloud access. Default cloud should have been setup as chameleon or jetstream. While booting the VM, mention appropriate image.
+Following should be done for setting up VM on chameleon or jetsream cloud. It is assumed that user already has the cloud access. Default cloud should have been setup as chameleon or jetstream. While booting the VM, mention pearth as secgroup.
 
     cm secgroup add pearth http 8081 8081 tcp 0.0.0.0/0
     cm secgroup add ssh http 22 22 tcp 0.0.0.0/0
     cm secgroup upload
-    cm vm boot --secgroup pearth --image=ubuntu-14.04-trusty-server-cloudimg
+    cm vm boot --secgroup pearth
     cm vm ip assign
     cm vm ssh
 
@@ -26,6 +26,7 @@ Update username in appserver in front of uname.
 
 ### Run ansible playbook
 
+    cd ~/earth/ansible
     ansible-playbook -i hosts setup.yml 
 
 ### Activate python virtual environment on VM
